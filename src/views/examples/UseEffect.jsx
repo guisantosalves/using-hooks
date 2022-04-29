@@ -11,15 +11,25 @@ function calcFatorial(num){
     
 }
 
+function verifyParImpar(num){
+    const n = parseInt(num)
+    
+    return n % 2 === 0 ? "par" : "impar"
+}
+
 const UseEffect = (props) => {
   const [number, setNumber] = useState(1);
   const [fatorial, setFatorial] = useState(1);
-
+  const [parImpar, setParImpar] = useState('');
   //dentro do [] no segundo parâmetro vai a dependência para a função ser chamada
   // sempre que number mudar vai ser chamado o useEffect
   useEffect(()=>{
     setFatorial(calcFatorial(number))
   }, [number])  
+
+  useEffect(()=>{
+    setParImpar(verifyParImpar(number))
+  }, [number])
 
   return (
     <div className="UseEffect">
@@ -45,7 +55,7 @@ const UseEffect = (props) => {
 
       <SectionTitle title="Exercicio 02"/>
       <div className="center">
-        
+        <span className="text">Status: {parImpar}</span>
       </div>
     </div>
   );
