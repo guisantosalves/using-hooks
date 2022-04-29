@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+#useState - mais simples, usado para mudar o estado de um componente
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#useEffect - muito usado para requisições, onde ele tem 2 parâmetros sendo esses dois parâmetros 
+uma função de callback com o que vai acontecer e outro passando em [] o componente que quando atualizar o estado
+vai disparar o valor do callback do primeiro parâmetro
 
-## Available Scripts
+const [number, setNumber] = useState(1);
 
-In the project directory, you can run:
+useEffect(()=>{
+    setFatorial(calcFatorial(number))
+  }, [number])  
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#useRef - ele conta no objeto que é criado (count) a quantidade de vezes que houve a renderização do componente,
+gerealmente se usa o useRef com o useEffect para que só conte a quantidade de vezes que determinado estado for mudado com o useState
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const [value1, setValue1] = useState("");
+const count = useRef(0);
 
-### `npm test`
+  useEffect(()=>{
+    count.current = count.current + 1
+  }, [value1])
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#useMemo - nada mais é que um valor em cache, onde ele faz uma determinada operação sem comprometer todo os estados das outras variáveis.
+ele irá guardar o valor de retorno de uma função a partir dos valores de entrada (Parâmetros). Ou seja, se uma função de soma recebe os parâmetros 2 e 3 e retorna 5, 
+esses valores serão armazenados e, 
+quando essa função for chamada com os mesmos parâmetros, ela não precisará refazer o cálculo para obter o valor de retorno, já que este estará armazenado.
 
-### `npm run build`
+function sum(num1, num2){
+    var n1 = parseInt(num1)
+    var n2 = parseInt(num2)
+    const future = Date.now() + 2000;
+    while(Date.now() < future){} //espera 2s
+    return n1 + n2
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const result = useMemo(() => sum(n1, n2), [n1, n2])
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#useCallback - The useCallback and useMemo Hooks are similar. The main difference is that useMemo returns a memoized value and useCallback returns a memoized function
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#useReducer - 
+The reducer function contains your custom state logic and the initialStatecan be a simple value but generally will contain an object.
+The useReducer Hook returns the current state and a dispatch method.
+https://www.w3schools.com/react/react_usereducer.asp
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#useContext -
+State should be held by the highest parent component in the stack that requires access to the state.
+To illustrate, we have many nested components. The component at the top and bottom of the stack need access to the state.
+To do this without Context, we will need to pass the state as "props" through each nested component. This is called "prop drilling"
+*React Context is a way to manage state globally.*
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
